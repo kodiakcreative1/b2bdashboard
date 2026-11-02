@@ -18,7 +18,7 @@ PASS: Reject invalid money NaN
 PASS: Reject invalid money 1.234
 PASS: Reject invalid money 1.
 PASS: Reject invalid money 1.2.3
-PASS: Reject invalid money 
+PASS: Reject invalid money
 PASS: Reject invalid money =100+5
 PASS: Leap-date validation
 PASS: ISO date and timestamp parsing

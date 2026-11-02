@@ -41,6 +41,6 @@ PASS: Default frequency restored
 PASS: Configured header color renders
 PASS: Configured accent color renders
 PASS: Arbitrary source URL rejected without changing settings
-PASS: No JavaScript page errors: 
+PASS: No JavaScript page errors:
 
 44 browser assertions passed.
