@@ -1,0 +1,4 @@
+PASS: Normal WordPress ZIP upload and extraction succeeded.
+PASS: Uploaded ZIP activated normally.
+PASS: Installed ZIP serves /dashboard/ with real source defaults and no fixture records.
+PASS: Installed ZIP serves /dashboard/transactions/ with real source defaults and no fixture records.

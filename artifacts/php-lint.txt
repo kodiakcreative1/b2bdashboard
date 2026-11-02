@@ -1,0 +1,5 @@
+No syntax errors detected in wp-content/plugins/chamber-b2b-dashboard/includes/class-data.php
+No syntax errors detected in wp-content/plugins/chamber-b2b-dashboard/includes/class-plugin.php
+No syntax errors detected in wp-content/plugins/chamber-b2b-dashboard/includes/class-admin.php
+No syntax errors detected in wp-content/plugins/chamber-b2b-dashboard/templates/dashboard.php
+No syntax errors detected in wp-content/plugins/chamber-b2b-dashboard/chamber-b2b-dashboard.php

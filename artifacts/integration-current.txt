@@ -1,0 +1,62 @@
+PASS: Valid rows preserved including exact duplicates, tiny amounts and dues
+PASS: Invalid date, amount, group and blank-row diagnostics
+PASS: Column D excluded from canonical model and diagnostics
+PASS: HTML sanitized from notes
+PASS: Quoted commas and embedded newlines preserved
+PASS: Newest transaction first
+PASS: Same-date ordering uses descending sheet row
+PASS: Year filter and integer-cent total
+PASS: Largest and exact rounded average
+PASS: All twelve months, including zero months
+PASS: Half-cent average rounds exactly
+PASS: Currency formats and zero
+PASS: No arbitrary high-value transaction cutoff
+PASS: Signed USD values
+PASS: Reject invalid money $1,00
+PASS: Reject invalid money 1e6
+PASS: Reject invalid money NaN
+PASS: Reject invalid money 1.234
+PASS: Reject invalid money 1.
+PASS: Reject invalid money 1.2.3
+PASS: Reject invalid money
+PASS: Reject invalid money =100+5
+PASS: Leap-date validation
+PASS: ISO date and timestamp parsing
+PASS: Search notes
+PASS: Search names
+PASS: Exact business filter
+PASS: Inclusive date range
+PASS: Numeric amount sort
+PASS: Reject HTML/login response
+PASS: Reject unexpected schema
+PASS: Reject empty replacement snapshots
+PASS: Valid date, amount and group count even when optional public fields are blank
+PASS: Header mapping tolerates reordered columns
+PASS: Sync uses configured read-only Google CSV endpoint
+PASS: Successful sync persists sanitized snapshot
+PASS: Private email absent from persisted public cache
+PASS: Sync uses configured read-only Google CSV endpoint
+PASS: Last-good cache survives network failure
+PASS: Sync uses configured read-only Google CSV endpoint
+PASS: Last-good cache survives html failure
+PASS: Sync uses configured read-only Google CSV endpoint
+PASS: Last-good cache survives empty failure
+PASS: Sync uses configured read-only Google CSV endpoint
+PASS: Last-good cache survives 403 failure
+PASS: Overlap lock blocks another download
+PASS: A different owner cannot release the lock
+PASS: Lock owner can release it
+PASS: Sync uses configured read-only Google CSV endpoint
+PASS: Expired lock recovery
+PASS: Future inactive group does not change public source
+PASS: Disabled groups cannot become public or sync
+PASS: Group-specific cache prevents cross-group leakage
+PASS: Cron refresh interval 1
+PASS: Cron refresh interval 15
+PASS: Cron refresh interval 30
+PASS: Deactivation removes scheduled refresh
+PASS: Deactivation removes dashboard rewrite rule
+PASS: Reactivation restores routes and scheduler
+PASS: Deactivation retains last-good data
+
+60 assertions passed. Browser fixture is synthetic, local-only.
