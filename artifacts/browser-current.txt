@@ -1,0 +1,46 @@
+PASS: HTTP 200 /dashboard/
+PASS: Exactly four headline cards
+PASS: Twelve month bars
+PASS: Five recent transactions
+PASS: No private column D in logged-out HTML
+PASS: Standalone document with one plugin header/footer
+PASS: Page title
+PASS: Accessible exact month totals
+PASS: View all stays on plugin transaction route
+PASS: Twenty rows on first list page
+PASS: Pagination remainder and matching year count
+PASS: HTTP 200 /dashboard/transactions/?report_year=2026&search=needle
+PASS: Search matching details paginates
+PASS: HTTP 200 /dashboard/transactions/?report_year=2026&search=QA%20Gamma
+PASS: Search filters names
+PASS: HTTP 200 /dashboard/transactions/?report_year=2026&business=QA%20Business%202
+PASS: Business filter
+PASS: HTTP 200 /dashboard/transactions/?report_year=2026&sort=amount&order=asc
+PASS: Amount sort is numeric
+PASS: HTTP 200 /dashboard/?report_year=2025
+PASS: Overview metrics respect reporting year
+PASS: Recent list respects reporting year
+PASS: HTTP 200 /dashboard/transactions/?report_year=2026&from=2026-10-27&to=2026-10-26
+PASS: Invalid range gets useful error
+PASS: HTTP 200 /dashboard/transactions/?report_year[]=2026&search[]=x&pg[]=2
+PASS: Array query parameters cannot crash page
+PASS: HTTP 200 /dashboard/transactions/?search=%3Cscript%3Ewindow.QA_XSS%3D1%3C%2Fscript%3E
+PASS: Search input is escaped
+PASS: HTTP 200 /dashboard/transactions/?search=Quoted
+PASS: Full long notes expand accessibly
+PASS: HTTP 200 /dashboard/
+PASS: Mobile overview has no viewport overflow
+PASS: Mobile table scroll is contained
+PASS: Logged-out refresh denied
+PASS: Admin settings page loads
+PASS: WordPress logo media picker opens
+PASS: Authenticated refresh without nonce denied
+PASS: Authenticated save without nonce denied
+PASS: Nonce-protected admin settings persist
+PASS: Default frequency restored
+PASS: Configured header color renders
+PASS: Configured accent color renders
+PASS: Arbitrary source URL rejected without changing settings
+PASS: No JavaScript page errors: 
+
+44 browser assertions passed.

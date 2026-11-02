@@ -1,0 +1,1 @@
+No PHP debug log generated during final browser checks.

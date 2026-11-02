@@ -1,0 +1,2 @@
+PASS: Empty first-sync state with no fabricated records /dashboard/
+PASS: Empty first-sync state with no fabricated records /dashboard/transactions/

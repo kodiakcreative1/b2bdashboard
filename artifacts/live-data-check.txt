@@ -1,0 +1,1 @@
+LIVE DATA BLOCKED: Unable to reach Google Sheets. Check outbound HTTPS access, DNS and TLS trust on this WordPress server.
