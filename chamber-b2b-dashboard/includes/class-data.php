@@ -29,6 +29,7 @@ final class Data {
     }
     /** The private Email column is never copied into the canonical/public model. */
     public static function parse(string $csv, string $group): array {
+        $csv = preg_replace('/^\xEF\xBB\xBF/', '', $csv);
         if (trim($csv) === '' || preg_match('/^\s*(?:<!doctype|<html|<head|<body|<\?xml)/i', $csv)) {
             throw new \RuntimeException('Source returned an empty or HTML/login response. Check public read access and the group gid.');
         }

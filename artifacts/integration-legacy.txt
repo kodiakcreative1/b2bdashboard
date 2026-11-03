@@ -1,3 +1,4 @@
+PASS: Quoted transaction CSV header supports UTF-8 BOM
 PASS: Valid rows preserved including exact duplicates, tiny amounts and dues
 PASS: Invalid date, amount, group and blank-row diagnostics
 PASS: Column D excluded from canonical model and diagnostics
@@ -8,18 +9,33 @@ PASS: Same-date ordering uses descending sheet row
 PASS: Year filter and integer-cent total
 PASS: Largest and exact rounded average
 PASS: All twelve months, including zero months
+PASS: Monthly counts match valid year transactions
+PASS: Month 1 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 2 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 3 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 4 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 5 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 6 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 7 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 8 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 9 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 10 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 11 exact dollars/count, including zero-value submissions and empty months
+PASS: Month 12 exact dollars/count, including zero-value submissions and empty months
+PASS: Empty year has twelve zero totals and zero counts
+PASS: Monthly totals and counts reconcile with headline metrics
 PASS: Half-cent average rounds exactly
 PASS: Currency formats and zero
 PASS: No arbitrary high-value transaction cutoff
 PASS: Signed USD values
-PASS: Reject invalid money $1,00
-PASS: Reject invalid money 1e6
-PASS: Reject invalid money NaN
-PASS: Reject invalid money 1.234
-PASS: Reject invalid money 1.
-PASS: Reject invalid money 1.2.3
-PASS: Reject invalid money
-PASS: Reject invalid money =100+5
+PASS: Reject invalid money "$1,00"
+PASS: Reject invalid money "1e6"
+PASS: Reject invalid money "NaN"
+PASS: Reject invalid money "1.234"
+PASS: Reject invalid money "1."
+PASS: Reject invalid money "1.2.3"
+PASS: Reject invalid money ""
+PASS: Reject invalid money "=100+5"
 PASS: Leap-date validation
 PASS: ISO date and timestamp parsing
 PASS: Search notes
@@ -59,4 +75,4 @@ PASS: Deactivation removes dashboard rewrite rule
 PASS: Reactivation restores routes and scheduler
 PASS: Deactivation retains last-good data
 
-60 assertions passed. Browser fixture is synthetic, local-only.
+76 assertions passed. Browser fixture is synthetic, local-only.

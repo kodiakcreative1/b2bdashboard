@@ -1,0 +1,35 @@
+PASS: Route /dashboard/ returns HTTP 200
+PASS: Three-way navigation on /dashboard/
+PASS: Historical navigation resolves from /dashboard/
+PASS: Route /dashboard/transactions/ returns HTTP 200
+PASS: Three-way navigation on /dashboard/transactions/
+PASS: Historical navigation resolves from /dashboard/transactions/
+PASS: Route /dashboard/historical/ returns HTTP 200
+PASS: Three-way navigation on /dashboard/historical/
+PASS: Historical navigation resolves from /dashboard/historical/
+PASS: Exactly four historical summary cards
+PASS: Historical summary labels match release requirements
+PASS: Monday historical dollar totals and starting year
+PASS: Historical breakdown cards reconcile
+PASS: No current transaction list or year filter on historical page
+PASS: Historical navigation active state
+PASS: No submitter email in historical HTML
+PASS: Historical layout fits 768px viewport
+PASS: Four historical summary cards retained at 768px
+PASS: Historical layout fits 390px viewport
+PASS: Four historical summary cards retained at 390px
+PASS: Historical layout fits 320px viewport
+PASS: Four historical summary cards retained at 320px
+PASS: Existing route fits 320px with three-link navigation: /dashboard/
+PASS: Existing route fits 320px with three-link navigation: /dashboard/transactions/
+PASS: Historical amounts never inflate current transaction totals
+PASS: Logged-out historical refresh denied
+PASS: Independent historical admin diagnostics visible
+PASS: Historical refresh requires nonce even for administrator
+PASS: Tuesday group configuration saved on local QA site
+PASS: Tuesday historical display maps to currently configured group
+PASS: Thursday group configuration saved on local QA site
+PASS: Thursday historical display maps to currently configured group
+PASS: No historical JavaScript page errors
+
+33 historical browser assertions passed.

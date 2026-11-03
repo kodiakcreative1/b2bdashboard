@@ -4,7 +4,7 @@ Tags: dashboard, business, reporting, google-sheets
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 0.1.0
+Stable tag: 0.1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,5 +30,11 @@ The Submitted by Email column is excluded from the public model and cache. No pu
 No. WP-Cron depends on traffic. Use a host-managed cron for reliable timing. Network errors retain the last successful snapshot.
 
 == Changelog ==
+= 0.1.2 =
+Independent Historical dashboard, validated read-only summaries, separate cron/cache/refresh controls, upgrade-safe routes and settings preservation.
+
+= 0.1.1 =
+Twelve monthly dollar/count cards and consistent transaction-table borders.
+
 = 0.1.0 =
 Initial review beta: standalone routes, server-side CSV sync/cache, public reporting and protected settings.

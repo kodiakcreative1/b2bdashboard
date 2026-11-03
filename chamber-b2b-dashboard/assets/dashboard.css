@@ -17,3 +17,5 @@
 @media(max-width:1000px){.cb2b-month-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){.cb2b-month-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:380px){.cb2b-month-grid{grid-template-columns:1fr}}
+/* Keep the three-page navigation usable on narrow phones. */
+@media(max-width:600px){.cb2b-header nav{flex-wrap:wrap}}

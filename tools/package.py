@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 VERSION = '0.1.2'
 PLUGIN = ROOT / 'chamber-b2b-dashboard'
 DIST = ROOT / 'dist'
-STAMP = (2026, 11, 2, 12, 0, 0)
+STAMP = (2026, 11, 3, 12, 0, 0)
 
 def archive(target, files, prefix=''):
     with zipfile.ZipFile(target, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:

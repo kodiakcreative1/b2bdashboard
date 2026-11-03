@@ -1,0 +1,5 @@
+Source: actual read-only Google CSV downloaded outside WordPress; validated with plugin parser.
+PASS: LIVE Monday start 2021: $1,868,857.90 + $929,216.00 = $2,798,073.90
+PASS: LIVE Tuesday start 2014: $15,253,960.30 + $127,499.39 = $15,381,459.69
+PASS: LIVE Thursday start 2016: $1,203,220.93 + $440,773.77 = $1,643,994.70
+PASS: Actual Google historical data validated for all three groups; current transaction cache and settings unchanged.

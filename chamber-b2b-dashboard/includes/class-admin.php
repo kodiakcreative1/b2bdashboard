@@ -49,6 +49,11 @@ final class Admin {
         $status = Plugin::sync();
         self::redirect(empty($status['error']) ? 'Refresh complete. Valid public records cached; see diagnostics below.' : $status['error'], !empty($status['error']));
     }
+    public static function historical_refresh(): void {
+        self::authorize('cb2b_historical_refresh');
+        $status = Historical::sync();
+        self::redirect(empty($status['error']) ? 'Historical refresh complete. Validated historical summaries cached separately.' : $status['error'], !empty($status['error']));
+    }
     public static function group_row(array $g, $i): void { ?>
         <tr>
         <?php foreach (['id' => 'Group key', 'name' => 'Display name', 'tab' => 'Exact sheet tab / B2B Group', 'gid' => 'Numeric gid'] as $key => $label): ?>
@@ -64,7 +69,7 @@ final class Admin {
         <div class="wrap"><h1>Chamber B2B Dashboard</h1>
         <?php if ($notice): ?><div class="notice <?php echo $notice['error'] ? 'notice-error' : 'notice-success'; ?>"><p><?php echo esc_html($notice['message']); ?></p></div><?php endif; ?>
         <p>Read-only reports. Saving here never edits Google Sheets, Gravity Forms, Zapier or the theme. Only the enabled active group is public.</p>
-        <p><a href="<?php echo esc_url(home_url('/dashboard/')); ?>">Open dashboard</a> · <a href="<?php echo esc_url(home_url('/dashboard/transactions/')); ?>">Open transactions</a></p>
+        <p><a href="<?php echo esc_url(home_url('/dashboard/')); ?>">Open dashboard</a> · <a href="<?php echo esc_url(home_url('/dashboard/transactions/')); ?>">Open transactions</a> · <a href="<?php echo esc_url(home_url('/dashboard/historical/')); ?>">Open historical</a></p>
         <?php if (get_option('permalink_structure') === ''): ?><div class="notice notice-warning"><p>Pretty permalinks are required for /dashboard/ routes. Select a non-Plain structure in Settings → Permalinks.</p></div><?php endif; ?>
         <?php if (get_page_by_path('dashboard')): ?><div class="notice notice-warning"><p>An existing dashboard page shares this path. This plugin controls /dashboard/ while active; deactivation restores the normal page route.</p></div><?php endif; ?>
         <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
@@ -88,6 +93,15 @@ final class Admin {
         <dt>Invalid / excluded rows in last successful parse</dt><dd><?php echo (int) ($status['invalid_rows'] ?? 0); ?></dd></dl>
         <?php if (!empty($status['issues'])): ?><ul><?php foreach ($status['issues'] as $issue): ?><li><?php echo esc_html($issue); ?></li><?php endforeach; ?></ul><p>At most 100 row diagnostics are displayed. Row numbers refer to CSV records, including the header.</p><?php endif; ?>
         <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>"><input type="hidden" name="action" value="cb2b_refresh"><?php wp_nonce_field('cb2b_refresh'); submit_button('Refresh Now', 'secondary'); ?></form>
+        <h2>Historical sync diagnostics</h2>
+        <?php $historical = Historical::snapshot(); $history_status = Historical::status(); ?>
+        <p>Historical totals through 2025 use a separate cache, refresh lock and scheduled event. Current transaction totals never include these historical summaries.</p>
+        <dl><dt>Historical source status</dt><dd><?php echo esc_html($history_status['error'] ?? '') ?: (empty($historical) ? 'Not synced yet.' : 'Last attempt succeeded.'); ?></dd>
+        <dt>Last historical attempt</dt><dd><?php echo isset($history_status['attempted']) ? esc_html(Plugin::stamp($history_status['attempted'])) : 'Never'; ?></dd>
+        <dt>Last successful historical sync</dt><dd><?php echo isset($historical['synced']) ? esc_html(Plugin::stamp($historical['synced'])) : 'Never'; ?></dd>
+        <dt>Cached historical groups</dt><dd><?php echo count($historical['rows'] ?? []); ?></dd>
+        <dt>Active group mapping</dt><dd><?php echo Historical::for_active() ? 'Historical summary available for the configured tab/group.' : 'No matching historical summary. Check the exact configured tab/group name.'; ?></dd></dl>
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>"><input type="hidden" name="action" value="cb2b_historical_refresh"><?php wp_nonce_field('cb2b_historical_refresh'); submit_button('Refresh Historical Now', 'secondary'); ?></form>
         <p>A failed or empty download retains the last successful snapshot. Changing spreadsheet, tab or gid uses a separate cache. Deactivation stops scheduled refreshes and retains settings/data for safe reactivation.</p>
         </div>
     <?php }

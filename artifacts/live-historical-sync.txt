@@ -1,0 +1,1 @@
+BLOCKED: native WordPress wp_safe_remote_get cannot pass DNS validation in this proxy-only QA runtime (http_request_failed: A valid URL was not provided). HTTPS curl to the permitted Google query endpoint returned real CSV successfully. No TLS or URL-safety checks were disabled. See live-historical.txt for actual CSV parsing and reference checks.

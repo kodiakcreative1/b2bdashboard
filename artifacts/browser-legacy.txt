@@ -1,14 +1,29 @@
 PASS: HTTP 200 /dashboard/
 PASS: Exactly four headline cards
-PASS: Twelve month bars
+PASS: Twelve monthly cards
 PASS: Five recent transactions
 PASS: No private column D in logged-out HTML
 PASS: Standalone document with one plugin header/footer
 PASS: Page title
-PASS: Accessible exact month totals
+PASS: 2026 has exactly twelve month cards
+PASS: 2026 January correct total and count
+PASS: 2026 February correct total and count
+PASS: 2026 March correct total and count
+PASS: 2026 April correct total and count
+PASS: 2026 May correct total and count
+PASS: 2026 June correct total and count
+PASS: 2026 July correct total and count
+PASS: 2026 August correct total and count
+PASS: 2026 September correct total and count
+PASS: 2026 October correct total and count
+PASS: 2026 November correct total and count
+PASS: 2026 December correct total and count
+PASS: recent transactions final row keeps all four borders on all six cells
 PASS: View all stays on plugin transaction route
 PASS: Twenty rows on first list page
+PASS: full transactions page 1 final row keeps all four borders on all six cells
 PASS: Pagination remainder and matching year count
+PASS: full transactions last page final row keeps all four borders on all six cells
 PASS: HTTP 200 /dashboard/transactions/?report_year=2026&search=needle
 PASS: Search matching details paginates
 PASS: HTTP 200 /dashboard/transactions/?report_year=2026&search=QA%20Gamma
@@ -20,6 +35,33 @@ PASS: Amount sort is numeric
 PASS: HTTP 200 /dashboard/?report_year=2025
 PASS: Overview metrics respect reporting year
 PASS: Recent list respects reporting year
+PASS: 2025 has exactly twelve month cards
+PASS: 2025 January correct total and count
+PASS: 2025 February correct total and count
+PASS: 2025 March correct total and count
+PASS: 2025 April correct total and count
+PASS: 2025 May correct total and count
+PASS: 2025 June correct total and count
+PASS: 2025 July correct total and count
+PASS: 2025 August correct total and count
+PASS: 2025 September correct total and count
+PASS: 2025 October correct total and count
+PASS: 2025 November correct total and count
+PASS: 2025 December correct total and count
+PASS: HTTP 200 /dashboard/?report_year=2024
+PASS: 2024 has exactly twelve month cards
+PASS: 2024 January correct total and count
+PASS: 2024 February correct total and count
+PASS: 2024 March correct total and count
+PASS: 2024 April correct total and count
+PASS: 2024 May correct total and count
+PASS: 2024 June correct total and count
+PASS: 2024 July correct total and count
+PASS: 2024 August correct total and count
+PASS: 2024 September correct total and count
+PASS: 2024 October correct total and count
+PASS: 2024 November correct total and count
+PASS: 2024 December correct total and count
 PASS: HTTP 200 /dashboard/transactions/?report_year=2026&from=2026-10-27&to=2026-10-26
 PASS: Invalid range gets useful error
 PASS: HTTP 200 /dashboard/transactions/?report_year[]=2026&search[]=x&pg[]=2
@@ -30,7 +72,9 @@ PASS: HTTP 200 /dashboard/transactions/?search=Quoted
 PASS: Full long notes expand accessibly
 PASS: HTTP 200 /dashboard/
 PASS: Mobile overview has no viewport overflow
+PASS: mobile recent transactions final row keeps all four borders on all six cells
 PASS: Mobile table scroll is contained
+PASS: mobile full transactions final row keeps all four borders on all six cells
 PASS: Logged-out refresh denied
 PASS: Admin settings page loads
 PASS: WordPress logo media picker opens
@@ -41,6 +85,6 @@ PASS: Default frequency restored
 PASS: Configured header color renders
 PASS: Configured accent color renders
 PASS: Arbitrary source URL rejected without changing settings
-PASS: No JavaScript page errors:
+PASS: No JavaScript page errors
 
-44 browser assertions passed.
+88 browser assertions passed.

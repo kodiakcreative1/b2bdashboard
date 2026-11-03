@@ -1,0 +1,67 @@
+PASS: monday matches verified figures in cents
+PASS: monday historical subtotals reconcile exactly
+PASS: tuesday matches verified figures in cents
+PASS: tuesday historical subtotals reconcile exactly
+PASS: thursday matches verified figures in cents
+PASS: thursday historical subtotals reconcile exactly
+PASS: Exactly one summary per group
+PASS: BOM accepted
+PASS: Reordered historical columns mapped by header
+PASS: Blank historical rows ignored
+PASS: Invalid/HTML/XML/schema input rejected
+PASS: Invalid/HTML/XML/schema input rejected
+PASS: Invalid/HTML/XML/schema input rejected
+PASS: Invalid/HTML/XML/schema input rejected
+PASS: Mismatched subtotals reject the entire import
+PASS: Impossible reporting start year rejected
+PASS: Malformed currency rejected
+PASS: Normalized duplicate group rejected
+PASS: Partial-width rows fail closed
+PASS: Duplicate/missing required header rejected
+PASS: Positive integer overflow rejected
+PASS: Negative integer overflow rejected
+PASS: Signed adjustments sum in integer cents
+PASS: Historical fetch restricted to generated Google URL
+PASS: Historical sync succeeds independently
+PASS: Historical summaries cached separately
+PASS: Historical sync never alters current transaction cache
+PASS: Historical sync never changes existing settings
+PASS: Historical fetch restricted to generated Google URL
+PASS: Historical fetch restricted to generated Google URL
+PASS: network retains entire last-good historical snapshot
+PASS: Historical fetch restricted to generated Google URL
+PASS: Historical fetch restricted to generated Google URL
+PASS: 403 retains entire last-good historical snapshot
+PASS: Historical fetch restricted to generated Google URL
+PASS: Historical fetch restricted to generated Google URL
+PASS: html retains entire last-good historical snapshot
+PASS: Historical fetch restricted to generated Google URL
+PASS: empty retains entire last-good historical snapshot
+PASS: Historical fetch restricted to generated Google URL
+PASS: invalid retains entire last-good historical snapshot
+PASS: Historical fetch restricted to generated Google URL
+PASS: partial retains entire last-good historical snapshot
+PASS: Historical fetch restricted to generated Google URL
+PASS: size retains entire last-good historical snapshot
+PASS: Historical fetch restricted to generated Google URL
+PASS: Historical fetch restricted to generated Google URL
+PASS: Read-only query fallback succeeds after export transport failure
+PASS: Historical refresh overlap is blocked before HTTP
+PASS: Historical fetch restricted to generated Google URL
+PASS: Expired historical lock safely recovered
+PASS: monday maps using configured tab despite customized display name
+PASS: tuesday maps using configured tab despite customized display name
+PASS: thursday maps using configured tab despite customized display name
+PASS: Missing configured tab cannot fall back to an unrelated old name/id
+PASS: Disabled group has no public history
+PASS: Different workbook uses a different historical cache
+PASS: Independent historical cron respects interval 1
+PASS: Independent historical cron respects interval 15
+PASS: Independent historical cron respects interval 30
+PASS: Deactivation clears both cron events
+PASS: Deactivation clears historical route
+PASS: Reactivation preserves historical cache and settings
+PASS: Activation registers historical route
+PASS: ZIP-update initialization adds historical route/schedule without resetting settings
+
+65 historical assertions passed. Reference fixtures are test-only.

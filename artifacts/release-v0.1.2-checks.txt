@@ -1,0 +1,3 @@
+PASS: All 14 files match the WordPress-installed copy
+PASS: Correct single plugin directory, CRCs, versions, no test fixtures or development files
+SHA256: 849fdb68a9685de51331f15ab94d97dec20e0eb591b8bd9ce3ed3d85d9b28f26
