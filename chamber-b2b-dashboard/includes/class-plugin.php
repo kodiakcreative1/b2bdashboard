@@ -64,7 +64,7 @@ final class Plugin {
         // Exclude plugin output from shared page caches: status and filters must remain current.
         if (!defined('DONOTCACHEPAGE')) { define('DONOTCACHEPAGE', true); }
         nocache_headers();
-        return CB2B_DIR . 'templates/dashboard.php';
+        return CB2B_DIR . (get_query_var('cb2b_page') === 'historical' ? 'templates/historical.php' : 'templates/dashboard.php');
     }
     public static function assets(): void {
         if (!in_array(get_query_var('cb2b_page'), ['dashboard', 'transactions', 'historical'], true)) { return; }
