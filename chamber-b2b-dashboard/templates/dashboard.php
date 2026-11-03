@@ -51,13 +51,12 @@ remove_action('wp_head', '_block_template_viewport_meta_tag', 0);
 <section class="cb2b-metrics" aria-label="<?php echo esc_attr($year); ?> headline metrics">
 <?php foreach (['total' => 'Total Closed Business', 'count' => 'Total Transactions', 'largest' => 'Largest Single Transaction', 'average' => 'Average Transaction'] as $key => $label): ?>
 <article class="cb2b-metric"><h2><?php echo esc_html($label); ?></h2><p><?php echo esc_html($key === 'count' ? number_format($metrics[$key]) : Data::money($metrics[$key])); ?></p><span><?php echo esc_html($year); ?> <?php echo $key === 'count' ? 'submitted transactions' : 'USD'; ?></span></article><?php endforeach; ?></section>
-<section class="cb2b-panel"><div class="cb2b-section-heading"><div><h2>Business, month by month</h2><p>Total closed business in US dollars · <?php echo esc_html($year); ?></p></div><span class="cb2b-pill">Jan – Dec</span></div>
-<?php $max = max(1, ...array_map('abs', $metrics['months'])); $month_labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']; ?>
-<div class="cb2b-chart" role="img" aria-label="Monthly closed business in dollars. Exact amounts for all twelve months are in the table below.">
-<?php foreach ($metrics['months'] as $month => $amount): $height = max($amount === 0 ? 0 : 1, abs($amount) / $max * 100); ?>
-<div class="cb2b-chart-column"><div class="cb2b-bar-space"><div class="cb2b-bar <?php echo $amount < 0 ? 'cb2b-negative' : ''; ?>" style="height:<?php echo esc_attr(number_format($height, 4, '.', '')); ?>%" title="<?php echo esc_attr($month_labels[$month - 1] . ': ' . Data::money($amount)); ?>"></div></div><span><?php echo esc_html($month_labels[$month - 1]); ?></span></div><?php endforeach; ?></div>
-<details class="cb2b-month-details"><summary>Read exact monthly dollar totals</summary><table class="cb2b-month-table"><caption><?php echo esc_html($year); ?> monthly closed business (USD)</caption><thead><tr><th scope="col">Month</th><th scope="col">Total dollars</th></tr></thead><tbody><?php foreach ($metrics['months'] as $month => $amount): ?><tr><th scope="row"><?php echo esc_html($month_labels[$month - 1]); ?></th><td><?php echo esc_html(Data::money($amount)); ?></td></tr><?php endforeach; ?></tbody></table></details>
-<p class="cb2b-chart-note">Bar heights scale to the largest absolute monthly total. Negative totals, if any, are striped and signed in the table.</p></section>
+<section class="cb2b-panel"><div class="cb2b-section-heading"><div><h2>Business, month by month</h2><p>Monthly closed business totals and transaction counts · <?php echo esc_html($year); ?></p></div><span class="cb2b-pill">Jan – Dec</span></div>
+<?php $month_labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']; ?>
+<div class="cb2b-month-grid" aria-label="<?php echo esc_attr($year); ?> monthly closed business">
+<?php foreach ($metrics['months'] as $month => $amount): $transaction_count = $metrics['month_counts'][$month]; ?>
+<article class="cb2b-month-card"><h3><?php echo esc_html($month_labels[$month - 1]); ?></h3><p class="cb2b-month-value"><?php echo esc_html(Data::money($amount)); ?></p><p class="cb2b-month-count"><?php echo esc_html(number_format($transaction_count)); ?> <?php echo $transaction_count === 1 ? 'transaction' : 'transactions'; ?></p></article>
+<?php endforeach; ?></div></section>
 <?php else: ?>
 <section class="cb2b-panel"><h2>Find a transaction</h2><p>All filters apply together within the selected reporting year. These list filters do not change the overview’s year totals.</p>
 <form class="cb2b-filters" method="get" action="<?php echo esc_url($list_url); ?>">
