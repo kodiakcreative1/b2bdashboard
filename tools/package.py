@@ -7,7 +7,7 @@ import stat
 import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
-VERSION = '0.1.0'
+VERSION = '0.1.2'
 PLUGIN = ROOT / 'chamber-b2b-dashboard'
 DIST = ROOT / 'dist'
 STAMP = (2026, 11, 2, 12, 0, 0)
