@@ -63,12 +63,12 @@ final class Data {
         return ['records' => $records, 'issues' => $issues, 'blank_rows' => $blank];
     }
     public static function metrics(array $records): array {
-        $sum = 0; $largest = null; $months = array_fill(1, 12, 0);
-        foreach ($records as $r) { $sum += $r['cents']; $largest = $largest === null ? $r['cents'] : max($largest, $r['cents']); $months[(int) substr($r['date'], 5, 2)] += $r['cents']; }
+        $sum = 0; $largest = null; $months = array_fill(1, 12, 0); $month_counts = array_fill(1, 12, 0);
+        foreach ($records as $r) { $sum += $r['cents']; $largest = $largest === null ? $r['cents'] : max($largest, $r['cents']); $month = (int) substr($r['date'], 5, 2); $months[$month] += $r['cents']; $month_counts[$month]++; }
         $count = count($records);
         // Exact round-half-away-from-zero, without floating point division.
         $average = $count ? (intdiv(abs($sum), $count) + ((abs($sum) % $count) * 2 >= $count ? 1 : 0)) * ($sum < 0 ? -1 : 1) : 0;
-        return ['total' => $sum, 'count' => $count, 'largest' => $largest ?? 0, 'average' => $average, 'months' => $months];
+        return ['total' => $sum, 'count' => $count, 'largest' => $largest ?? 0, 'average' => $average, 'months' => $months, 'month_counts' => $month_counts];
     }
     public static function money(int $cents): string { return ($cents < 0 ? '-$' : '$') . number_format(intdiv(abs($cents), 100)) . '.' . str_pad((string) (abs($cents) % 100), 2, '0', STR_PAD_LEFT); }
     public static function filter(array $records, array $filters): array {
