@@ -1,0 +1,4 @@
+PASS: Runtime PHP/JS/CSS identical to main cc3d8f1280210abcc395f50a59d1d21b3e014f9a
+PASS: All 12 archive files match the WordPress-installed copy
+PASS: One correct plugin root, valid CRCs, version 0.1.1, no QA fixtures
+SHA256: 0f4dc670eaf4991e7107c09538c6d63e2b88ef62afee062804ca41e2dcc4f6a7

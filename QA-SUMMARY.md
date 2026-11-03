@@ -1,71 +1,47 @@
-# Chamber B2B Dashboard 0.1.0 — beta QA
+# Chamber B2B Dashboard v0.1.1 — release QA
 
-Prepared November 2, 2026, before the noon America/Chicago review target. This is an implementation and isolated-test result, not production deployment approval or a claim of verified live totals.
+Packaged November 3, 2026, from the latest fetched `main` commit `cc3d8f1280210abcc395f50a59d1d21b3e014f9a` (monthly cards and consistent table borders).
 
-## Outcome
+## Scope
 
-The plugin is implemented and packaged for beta review. Both public routes and protected administrator configuration work in isolated WordPress installations. No live WordPress site, form, Zap, spreadsheet or submission was changed.
+The application PHP, settings implementation, routing, CSV parser and frontend CSS/template are preserved from that commit. Release changes update the packaging script, release documentation, stable tag and regression tests for the new UI. The plugin remains in the single `chamber-b2b-dashboard/` directory, with the same settings option names, group sources and cache keys. The Google Sheet and production website were not modified or contacted during this packaging run.
 
-**Remaining acceptance blocker: real Monday data.** Google Sheets requests were blocked by the workspace's HTTPS egress policy. A direct HTTPS request failed with proxy `CONNECT ... 403`; an actual WordPress `wp_safe_remote_get` sync also failed. The provided sheet's sharing permissions were not diagnosed as incorrect. The plugin ships the real source ID and gid `0`, with no sample records or hardcoded dashboard totals. A failed first sync shows an explicit unavailable-data message. Real count, total, monthly distribution, latest records and schema/date/group-label compatibility must be verified once network access is available.
+## Checks
 
-## Executed test matrix
+| Environment | PHP integration assertions | Chromium browser assertions |
+| --- | --- | --- |
+| WordPress 7.1.4 / PHP 8.3.36 / MariaDB 11.4 | 75 passed | 88 passed |
+| WordPress 6.6.2 / PHP 8.2.25 / MariaDB 11.4 | 75 passed | 88 passed |
 
-| Environment | PHP integration | Browser assertions | Result |
-| --- | --- | --- | --- |
-| WordPress 7.1.4 / PHP 8.3.36 / MariaDB 11.4 / Apache | 60 passed | 44 passed | Passed |
-| WordPress 6.6.2 / PHP 8.2.25 / MariaDB 11.4 / Apache | 60 passed | 44 passed | Passed |
+- PHP syntax checks cover all five runtime PHP files and all four PHP test helpers on both PHP versions (18 successful checks).
+- JavaScript syntax checks cover both runtime scripts and all three browser test runners (5 successful checks).
+- The existing integration suite continues to exercise CSV parsing, currency precision, date validation, duplicate preservation, email exclusion, filters/sorting, cache failure retention, refresh locks, source isolation, all refresh intervals, and activation/deactivation safety.
+- Browser regressions retain the existing navigation, metrics, filters, sorting, pagination, privacy, XSS, malformed-query, long-note, mobile, media-picker, nonce/capability and saved-color checks. Chart assertions were replaced with assertions for the twelve monthly cards now present on `main`.
 
-Chromium/Playwright ran real logged-out requests, logged-in administrator actions and 1440-pixel desktop / 390-pixel mobile layouts. PHP files passed `php -l`; production JS passed `node --check`. No PHP debug log was generated during final browser checks; no JavaScript page errors were observed. A separate two-route check verifies first-sync empty states after synthetic snapshots were removed.
+## Monthly-card verification
 
-`tests/zip-browser.cjs` exercises WordPress's normal plugin ZIP upload and activation on a third fresh, local WordPress site without a source bind mount. Packaging validates CRCs, safe paths, one plugin root and exclusion of tests/fixtures. The source release includes the resulting `artifacts/zip-install.txt` evidence.
+The PHP suite checks each of January–December against independently specified expected cent totals and transaction counts. Its multi-month case covers two January transactions totaling $4.00, one April transaction of $328,000.00, a valid zero-dollar December transaction counted as one, and nine months with no transactions. An empty year must yield twelve zero totals and twelve zero counts; monthly totals/counts must reconcile with headline values.
 
-The ZIP-upload site also logged WordPress core update-check warnings when optional WordPress.org access was unavailable; those warnings were not emitted by plugin code. The upload runner waits for the streamed installer to finish before assessing its result.
+Browser checks verify every card's month name, formatted dollars and correctly singular/plural transaction count against the known local fixture:
 
-All fixture data is synthetic and confined to local QA WordPress databases and developer tests. Screenshots named `qa-*-synthetic.png` are layout evidence, **not actual Chamber transactions or financial results**. They are excluded from the runtime plugin ZIP. No zero-test run is represented as a pass.
+- 2026: October **$662,367.00 / 28 transactions**; every other month **$0.00 / 0 transactions**.
+- 2025: January **$1.25 / 1 transaction**; every other month **$0.00 / 0 transactions**.
+- 2024: all twelve months **$0.00 / 0 transactions**.
 
-## Covered behavior
+These are explicit synthetic QA values, not live Chamber financial results. Fixtures are excluded from the runtime ZIP.
 
-- Currency parsing (`$328,000`, `$262.50`, `60`, tiny/zero/signed values); no arbitrary high-value cutoff; exact integer-cent totals and rounded averages.
-- All twelve months, including zero months; year-scoped metrics and recent rows.
-- Duplicate preservation, same-date descending row order, US/ISO dates and leap-day rejection.
-- Quoted CSV commas/newlines, header reordering, schema validation, invalid dates/amounts/group diagnostics and blank-row exclusion.
-- Column D never copied to the canonical model, cached snapshot, row diagnostics or rendered logged-out HTML, including transaction-list/filter/page responses.
-- Public notes sanitized and escaped; search input escaped; malformed array-valued query parameters do not crash templates.
-- Search, business/date/year filters, inclusive date ranges, invalid-range feedback, numeric amount sort, 20-row pagination and inline long-note expansion.
-- Exactly four cards, standalone plugin header/footer, unique title, accessible twelve-month exact-dollar table and internal View All Transactions navigation.
-- Mobile document width stays within the viewport; wide tables scroll inside their region.
-- Last-good cache retention on network, HTML/login, empty and HTTP 403 responses; overlap lock, lock ownership and expired-lock recovery.
-- Disabled sources cannot be made public; source-specific caches prevent cross-group data mixing; one-minute, 15-minute and 30-minute schedules.
-- Logged-out refresh denied; authenticated save/refresh without nonce denied; nonce-protected settings persist; arbitrary backend URL rejected.
-- Deactivation removes cron and rewrite rules, preserves cached data, and reactivation restores routes and scheduling.
+## Transaction-table borders
 
-## Findings corrected during development
+Chromium checks computed styles on all six cells of the final row, requiring a solid border of at least one pixel on each of the four sides. This is checked for the recent-transactions table, the full list's first and last pagination pages, and both tables at mobile width. Both WordPress/PHP combinations pass. Desktop and mobile screenshots are saved under `artifacts/qa-*-synthetic.png`.
 
-The block theme added a second title/viewport through WordPress's head hooks. The standalone template now removes only those duplicate document hooks while retaining normal head/footer integration. Deactivation now removes in-memory plugin rewrite rules before flushing them, preventing stale route registration. Initial local installer problems (mount permissions and installation-mode rewrite flushing) were fixed in the test harness. A CSS variable inheritance issue found during review was also fixed; browser checks confirm that saved header/accent colors render correctly. These were rechecked before packaging.
+## Packaging and upgrade
 
-## Live acceptance still unrun
+The repository's existing `python3 tools/package.py` creates `dist/chamber-b2b-dashboard-v0.1.1.zip` and the corresponding source archive. The WordPress plugin header, `CB2B_VERSION`, stable tag and package version are all 0.1.1. Archive validation checks CRCs, a single correct root, safe paths, and exclusion of fixture/test files.
 
-The following baseline comes from the handoff and is **not a test result**:
+The normal WordPress Admin ZIP upload/replace flow is exercised on a third local QA site, upgrading its installed v0.1.0 plugin. The test checks successful upload, installed version 0.1.1, retained activation and exact equality of every existing settings form field before/after upgrade. Both routes must still render, and an unsynced dashboard must display twelve $0.00 / 0-transaction cards without example rows. Installed file hashes are compared with the final runtime ZIP. Evidence is saved in `artifacts/zip-install.txt` and `artifacts/zip-installed-sha256.txt`; release archive hashes are in `dist/SHA256SUMS`.
 
-- 56 transactions; total **$841,648.28**; largest **$328,000.00**; average **$15,029.43**.
-- Latest date October 27, 2026; October 26 ties ordered by newest source row.
-- Monthly USD: Jan 0; Feb 1,307; Mar 2,185; Apr 334,977.50; May 11,538.12; Jun 11,115; Jul 82; Aug 4,790; Sep 51.75; Oct 475,601.91; Nov 0; Dec 0.
+Synthetic snapshots are removed from the two fixture QA sites after regression testing, then the separate empty-state browser suite checks both routes. WordPress core can emit optional update-check warnings when WordPress.org access is unavailable in the isolated QA environments; no such warning is treated as a successful live Sheet check or a plugin regression.
 
-`tests/live.php` is ready to perform an actual read-only server sync and print aggregates only. It compares to the dated baseline and reports differences; newer legitimate rows must not be removed to force a match. No real-data acceptance test has passed yet.
+## Limits
 
-## Other limits and owner checks
-
-- Official logo and exact brand colors could not be retrieved from the reference sites. The text wordmark and navy/teal defaults are provisional and configurable in settings.
-- WP-Cron is traffic-driven. Real one-minute scheduling and the production host's outbound HTTPS/TLS/redirect behavior require host validation.
-- Normal WordPress/plugin hook compatibility, SEO-plugin metadata, existing route collisions, CDN/page caching, and screen-reader operation should be reviewed on staging. Automated behavior checks are not a formal accessibility audit.
-- Group validation expects each source row's `B2B Group` to equal its configured tab name, case-insensitively. Confirm against the real Monday CSV. Only Monday is initially configured; Tuesday and anticipated Wednesday remain distinct.
-- Empty upstream sources retain last-good data intentionally. Five-megabyte downloads and 64-bit integer limits produce diagnostics.
-- Column D is excluded; names, businesses, recipient and notes are intentionally public as requested. No source CSV, private email list or third-party brand asset was bundled.
-
-## Network configuration saved
-
-A draft preserves the package-manager preset and adds `docs.google.com`, `www.dubuquechamber.com` and `dubuqueb2b.org` for read-only source/reference checks. The draft save succeeded. The environment tool requires the owner to review/save settings and publish the environment; saving the draft did not apply or publish it. If Google's CSV export redirects to a separate download hostname, that observed destination may also need to be added. No broader wildcard network access was requested.
-
-## Review and deployment
-
-The site owner can upload the ZIP, activate it, confirm settings/verified branding, click Refresh Now and review both pages logged out. Perform this on staging first when available. The production website and its connected submission pipeline remain untouched. See README.md for the full installation, cron and troubleshooting instructions.
+No live Google Sheet fetch or production deployment was performed. The optional `tests/live.php` checker is not part of this offline packaging regression run; its dated baseline comparison now ignores the newly added `month_counts` model field. The historical `artifacts/live-data-check.txt` records the earlier v0.1.0 network failure, not a new v0.1.1 attempt. Real source availability, official branding, host cron timing, CDN exclusions and production theme/plugin compatibility remain site-owner checks. Existing settings are retained; this release does not add or reset any settings.

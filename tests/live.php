@@ -17,4 +17,4 @@ if (!empty($result['error'])) { fwrite(STDERR, 'LIVE DATA BLOCKED: ' . $result['
 $records = Data::filter(Plugin::snapshot()['records'], ['year'=>'2026']);
 $metrics = Data::metrics($records);
 $baseline = ['total'=>84164828,'count'=>56,'largest'=>32800000,'average'=>1502943,'months'=>[1=>0,130700,218500,33497750,1153812,1111500,8200,479000,5175,47560191,0,0]];
-echo json_encode(['source'=>'live Monday Google Sheet', 'year'=>2026,'synced_central'=>Plugin::stamp(Plugin::snapshot()['synced']), 'metrics'=>$metrics, 'latest_date'=>$records[0]['date'] ?? null,'matches_2026_11_01_baseline'=>$metrics === $baseline,'validation_issues'=>$result['issues'] ?? []], JSON_PRETTY_PRINT) . "\n";
+echo json_encode(['source'=>'live Monday Google Sheet', 'year'=>2026,'synced_central'=>Plugin::stamp(Plugin::snapshot()['synced']), 'metrics'=>$metrics, 'latest_date'=>$records[0]['date'] ?? null,'matches_2026_11_01_baseline'=>array_intersect_key($metrics, $baseline) === $baseline,'validation_issues'=>$result['issues'] ?? []], JSON_PRETTY_PRINT) . "\n";

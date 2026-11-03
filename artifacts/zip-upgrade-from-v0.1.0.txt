@@ -1,0 +1,6 @@
+PASS: Normal WordPress ZIP upload and extraction succeeded.
+PASS: Uploaded v0.1.1 ZIP activated normally.
+PASS: All existing plugin setting fields preserved across ZIP upgrade.
+PASS: Installed ZIP renders twelve zero-dollar/zero-count cards before first sync.
+PASS: Installed ZIP serves /dashboard/ with real source defaults and no fixture records.
+PASS: Installed ZIP serves /dashboard/transactions/ with real source defaults and no fixture records.

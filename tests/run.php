@@ -43,11 +43,24 @@ $year = Data::filter($records, ['year' => '2026']); $metrics = Data::metrics($ye
 check($metrics['count'] === 5 && $metrics['total'] === 65632950, 'Year filter and integer-cent total');
 check($metrics['largest'] === 32800000 && $metrics['average'] === 13126590, 'Largest and exact rounded average');
 check(count($metrics['months']) === 12 && $metrics['months'][1] === 0 && $metrics['months'][10] === 65632950, 'All twelve months, including zero months');
+check(count($metrics['month_counts']) === 12 && $metrics['month_counts'][10] === 5 && array_sum($metrics['month_counts']) === 5, 'Monthly counts match valid year transactions');
+$month_cases = Data::metrics([
+ ['date'=>'2026-01-01','cents'=>125], ['date'=>'2026-01-31','cents'=>275],
+ ['date'=>'2026-04-01','cents'=>32800000], ['date'=>'2026-12-31','cents'=>0],
+]);
+foreach (range(1, 12) as $month) {
+    $expected_total = [1=>400, 4=>32800000][$month] ?? 0;
+    $expected_count = [1=>2, 4=>1, 12=>1][$month] ?? 0;
+    check($month_cases['months'][$month] === $expected_total && $month_cases['month_counts'][$month] === $expected_count, 'Month ' . $month . ' exact dollars/count, including zero-value submissions and empty months');
+}
+$empty_metrics = Data::metrics([]);
+check($empty_metrics['months'] === array_fill(1,12,0) && $empty_metrics['month_counts'] === array_fill(1,12,0), 'Empty year has twelve zero totals and zero counts');
+check(array_sum($month_cases['months']) === $month_cases['total'] && array_sum($month_cases['month_counts']) === $month_cases['count'], 'Monthly totals and counts reconcile with headline metrics');
 check(Data::metrics([['date'=>'2026-01-01','cents'=>1],['date'=>'2026-01-01','cents'=>0]])['average'] === 1, 'Half-cent average rounds exactly');
 check(Data::cents('$262.50') === 26250 && Data::cents('60') === 6000 && Data::cents('0') === 0, 'Currency formats and zero');
 check(Data::cents('100000000000.00') === 10000000000000, 'No arbitrary high-value transaction cutoff');
 check(Data::cents('-$12.34') === -1234 && Data::money(-1234) === '-$12.34', 'Signed USD values');
-foreach (['$1,00','1e6','NaN','1.234','1.','1.2.3','', '=100+5'] as $invalid) { check(Data::cents($invalid) === null, 'Reject invalid money ' . $invalid); }
+foreach (['$1,00','1e6','NaN','1.234','1.','1.2.3','', '=100+5'] as $invalid) { check(Data::cents($invalid) === null, 'Reject invalid money ' . json_encode($invalid)); }
 check(Data::date('2/29/2024') === '2024-02-29' && Data::date('2/29/2026') === null, 'Leap-date validation');
 check(Data::date('2026-10-27') === '2026-10-27' && Data::date('10/27/2026 14:15:01') === '2026-10-27', 'ISO date and timestamp parsing');
 check(count(Data::filter($records, ['year'=>'2026','search'=>'needle'])) === 1, 'Search notes');

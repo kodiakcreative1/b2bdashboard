@@ -1,0 +1,5 @@
+PASS: node --check chamber-b2b-dashboard/assets/admin.js
+PASS: node --check chamber-b2b-dashboard/assets/dashboard.js
+PASS: node --check tests/browser.cjs
+PASS: node --check tests/empty-browser.cjs
+PASS: node --check tests/zip-browser.cjs
